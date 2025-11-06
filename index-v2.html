@@ -791,10 +791,17 @@
             DAY4_PRESENTATION_HOURS: 6,
             DAY4_COACHING_HOURS: 11,
 
-            SALES_DAY2_TIER1: 1000000,
-            SALES_DAY2_TIER2: 900000,
-            SALES_DAY4_TIER1: 1400000,
-            SALES_DAY4_TIER2: 1200000
+            // 2일차 세일즈 가격 (4단계)
+            SALES_DAY2_TIER1: 1100000,  // 11-15명
+            SALES_DAY2_TIER2: 1050000,  // 16-20명
+            SALES_DAY2_TIER3: 1000000,  // 21-25명
+            SALES_DAY2_TIER4: 970000,   // 26-30명
+
+            // 4일차 세일즈 가격 (4단계)
+            SALES_DAY4_TIER1: 1350000,  // 11-15명
+            SALES_DAY4_TIER2: 1300000,  // 16-20명
+            SALES_DAY4_TIER3: 1250000,  // 21-25명
+            SALES_DAY4_TIER4: 1210000   // 26-30명
         };
 
         // 보조강사 수 계산
@@ -854,14 +861,22 @@
                 total = baseCost + coachingCost;
                 perPerson = Math.floor(total / participants);
                 tier = '1-10명 (기본 + 개별코칭)';
-            } else if (participants <= 20) {
+            } else if (participants <= 15) {
                 perPerson = config.SALES_DAY2_TIER1;
                 total = participants * perPerson;
-                tier = '11-20명';
-            } else {
+                tier = '11-15명';
+            } else if (participants <= 20) {
                 perPerson = config.SALES_DAY2_TIER2;
                 total = participants * perPerson;
-                tier = '21-30명';
+                tier = '16-20명';
+            } else if (participants <= 25) {
+                perPerson = config.SALES_DAY2_TIER3;
+                total = participants * perPerson;
+                tier = '21-25명';
+            } else {
+                perPerson = config.SALES_DAY2_TIER4;
+                total = participants * perPerson;
+                tier = '26-30명';
             }
 
             return {
@@ -878,14 +893,22 @@
                 total = 13_350_000;
                 perPerson = Math.floor(total / participants);
                 tier = '1-10명 (고정)';
-            } else if (participants <= 20) {
+            } else if (participants <= 15) {
                 perPerson = config.SALES_DAY4_TIER1;
                 total = participants * perPerson;
-                tier = '11-20명';
-            } else {
+                tier = '11-15명';
+            } else if (participants <= 20) {
                 perPerson = config.SALES_DAY4_TIER2;
                 total = participants * perPerson;
-                tier = '21-30명';
+                tier = '16-20명';
+            } else if (participants <= 25) {
+                perPerson = config.SALES_DAY4_TIER3;
+                total = participants * perPerson;
+                tier = '21-25명';
+            } else {
+                perPerson = config.SALES_DAY4_TIER4;
+                total = participants * perPerson;
+                tier = '26-30명';
             }
 
             return {
@@ -912,12 +935,20 @@
                         <div class="description">기본 750만원 + 개별코칭 30만원/명<br>(보조강사 없음)</div>
                     </div>
                     <div class="price-tier">
-                        <strong>📌 11-20명</strong>
-                        <div class="description">세일즈: 100만원/명<br>원가: 기본 1,140만원 + 코칭 30만원/명<br>(보조강사 1명 포함)</div>
+                        <strong>📌 11-15명</strong>
+                        <div class="description">세일즈: 110만원/명<br>원가: 기본 1,140만원 + 코칭 30만원/명<br>(보조강사 1명 포함)</div>
                     </div>
                     <div class="price-tier">
-                        <strong>📌 21-30명</strong>
-                        <div class="description">세일즈: 90만원/명<br>원가: 기본 1,530만원 + 코칭 30만원/명<br>(보조강사 2명 포함)</div>
+                        <strong>📌 16-20명</strong>
+                        <div class="description">세일즈: 105만원/명<br>원가: 기본 1,140만원 + 코칭 30만원/명<br>(보조강사 1명 포함)</div>
+                    </div>
+                    <div class="price-tier">
+                        <strong>📌 21-25명</strong>
+                        <div class="description">세일즈: 100만원/명<br>원가: 기본 1,530만원 + 코칭 30만원/명<br>(보조강사 2명 포함)</div>
+                    </div>
+                    <div class="price-tier">
+                        <strong>📌 26-30명</strong>
+                        <div class="description">세일즈: 97만원/명<br>원가: 기본 1,530만원 + 코칭 30만원/명<br>(보조강사 2명 포함)</div>
                     </div>
                     <div class="price-tier">
                         <strong>📌 31명 이상</strong>
@@ -931,7 +962,7 @@
                             <li>1:1 개별 코칭 (1시간/인)</li>
                             <li>보조강사 자동 배정 (11명 이상)</li>
                             <li>교육 자료 및 워크시트 제공</li>
-                            
+
                         </ul>
                     </div>
                 `;
@@ -942,12 +973,20 @@
                         <div class="description">1,335만원 (고정)<br>(보조강사 없음)</div>
                     </div>
                     <div class="price-tier">
-                        <strong>📌 11-20명</strong>
-                        <div class="description">세일즈: 140만원/명<br>원가: 2,175만원 (고정)<br>(보조강사 1명 포함)</div>
+                        <strong>📌 11-15명</strong>
+                        <div class="description">세일즈: 135만원/명<br>원가: 2,175만원 (고정)<br>(보조강사 1명 포함)</div>
                     </div>
                     <div class="price-tier">
-                        <strong>📌 21-30명</strong>
-                        <div class="description">세일즈: 120만원/명<br>원가: 3,015만원 (고정)<br>(보조강사 2명 포함)</div>
+                        <strong>📌 16-20명</strong>
+                        <div class="description">세일즈: 130만원/명<br>원가: 2,175만원 (고정)<br>(보조강사 1명 포함)</div>
+                    </div>
+                    <div class="price-tier">
+                        <strong>📌 21-25명</strong>
+                        <div class="description">세일즈: 125만원/명<br>원가: 3,015만원 (고정)<br>(보조강사 2명 포함)</div>
+                    </div>
+                    <div class="price-tier">
+                        <strong>📌 26-30명</strong>
+                        <div class="description">세일즈: 121만원/명<br>원가: 3,015만원 (고정)<br>(보조강사 2명 포함)</div>
                     </div>
                     <div class="price-tier">
                         <strong>📌 31명 이상</strong>
@@ -962,7 +1001,7 @@
                             <li>보조강사 자동 배정 (11명 이상)</li>
                             <li>교육 자료 및 워크시트 제공</li>
                             <li>실습 프로젝트 지원</li>
-                            
+
                         </ul>
                     </div>
                 `;
@@ -1099,11 +1138,11 @@
                             <span class="estimate-value">${formatCurrency(originalResult.presentationCost)}</span>
                         </div>
                         <div class="estimate-item">
-                            <span class="estimate-label">상주 코칭료 (11시간)</span>
+                            <span class="estimate-label">메인 강사 상주 코칭료 (11시간)</span>
                             <span class="estimate-value">${formatCurrency(originalResult.coachingCost)}</span>
                         </div>
                         <div class="estimate-item">
-                            <span class="estimate-label">보조강사 (${originalResult.assistantCount}명)</span>
+                            <span class="estimate-label">보조강사 (전 세션 + 코칭) (${originalResult.assistantCount}명)</span>
                             <span class="estimate-value">${formatCurrency(originalResult.assistantCost)}</span>
                         </div>
                         <div class="estimate-item">
@@ -1239,9 +1278,11 @@
 
             // 구간별 가격 정의
             const ranges = [
-                { label: '1-10명', day2: '기본 750만원 + 개별코칭 30만원/명', day4: '1,335만원 고정', value: 10 },
-                { label: '11-20명(보조강사 1명)', day2: '100만원/명', day4: '140만원/명', value: 15 },
-                { label: '21-30명(보조강사 2명)', day2: '90만원/명', day4: '120만원/명', value: 25 }
+                { label: '1-10명', day2: '기본 750만원 + 개별코칭 30만원/명', day4: '1,335만원 고정' },
+                { label: '11-15명 (보조강사 1명)', day2: '110만원/명', day4: '135만원/명' },
+                { label: '16-20명 (보조강사 1명)', day2: '105만원/명', day4: '130만원/명' },
+                { label: '21-25명 (보조강사 2명)', day2: '100만원/명', day4: '125만원/명' },
+                { label: '26-30명 (보조강사 2명)', day2: '97만원/명', day4: '121만원/명' }
             ];
 
             let html = '';
