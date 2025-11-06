@@ -5,7 +5,11 @@
       "Bash(open index-v2.html)",
       "Bash(open \"/Users/wine_ny/side-project/pricing/index-v2.html\")",
       "Bash(git init)",
-      "Bash(git add .)"
+      "Bash(git add .)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd pricing calculator with tier-based pricing\n\n- 2-day and 4-day program pricing calculator\n- Sidebar navigation with program selection and participant input\n- Side-by-side sales and original cost estimates\n- Full price table with tier-based pricing (1-10, 11-20, 21-30, 30+)\n- Korean currency formatting (만원)\n- Responsive design with sticky sidebar\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(vercel --prod)",
+      "Bash(vercel --prod --yes)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nUpdate pricing calculator with final modifications\n\n- Remove insights section (commented out)\n- Change per-person table to tier-based pricing display\n- 1-10명: Display as minimum/fixed price (최소 1,000만원, 1,335만원 고정)\n- 11-20명, 21-30명: Display as per-person rate (100만원/명, 90만원/명)\n- Remove all difference columns (차액) from tables\n- Update table header from \"인당 비용\" to \"구간별 가격\"\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []
