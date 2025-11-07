@@ -4,7 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>맞춤형 워크샵 견적 계산기</title>
+
+    <!-- Pretendard 폰트 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+
     <style>
+        :root {
+            /* Neutra B2B 컬러 시스템 */
+            --primary: #eb5a11;
+            --primary-50: #fef4f0;
+            --primary-100: #fde3d7;
+            --primary-400: #f47c3c;
+            --primary-600: #c44a0e;
+            --primary-700: #9d3b0b;
+            --primary-800: #7d2f09;
+
+            --neutral-0: #ffffff;
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-200: #e5e5e5;
+            --neutral-400: #a3a3a3;
+            --neutral-600: #525252;
+            --neutral-800: #262626;
+            --neutral-900: #171717;
+
+            /* 타이포그래피 */
+            --font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+
+            /* 그림자 */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,25 +52,31 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: var(--font-family);
+            background: var(--neutral-50);
             min-height: 100vh;
+            color: var(--neutral-800);
         }
 
         .header {
             text-align: center;
-            color: white;
-            padding: 30px 20px;
+            padding: 60px 20px 40px;
+            background: var(--neutral-0);
+            border-bottom: 1px solid var(--neutral-200);
         }
 
         .header h1 {
             font-size: 2.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 16px;
+            color: var(--neutral-900);
+            font-weight: 700;
         }
 
         .header p {
             font-size: 1.1rem;
-            opacity: 0.9;
+            color: var(--neutral-600);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* 탭 메뉴 */
@@ -39,31 +85,35 @@
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            background: var(--neutral-0);
+            padding-top: 20px;
+            border-bottom: 2px solid var(--neutral-200);
         }
 
         .tab-btn {
-            padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 15px 15px 0 0;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--neutral-600);
+            border: none;
+            border-bottom: 3px solid transparent;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             transition: all 0.3s;
+            font-family: var(--font-family);
+            margin-bottom: -2px;
         }
 
         .tab-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
+            color: var(--primary);
+            background: var(--primary-50);
         }
 
         .tab-btn.active {
-            background: white;
-            color: #667eea;
-            border-color: white;
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: transparent;
         }
 
         /* 탭 컨텐츠 */
@@ -90,10 +140,11 @@
         }
 
         .sidebar-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: var(--neutral-0);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--neutral-200);
             position: sticky;
             top: 20px;
             max-height: calc(100vh - 40px);
@@ -110,40 +161,44 @@
 
         .sidebar-section h3 {
             font-size: 1.2rem;
-            color: #667eea;
-            margin-bottom: 15px;
+            color: var(--neutral-900);
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-weight: 700;
         }
 
         /* 프로그램 선택 */
         .program-selector {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 10px;
         }
 
         .program-btn {
             padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            background: white;
+            border: 2px solid var(--neutral-200);
+            border-radius: var(--radius-md);
+            background: var(--neutral-0);
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
             font-weight: 600;
-            color: #333;
+            color: var(--neutral-700);
+            font-family: var(--font-family);
         }
 
         .program-btn:hover {
-            border-color: #667eea;
-            background: #f8f9ff;
+            border-color: var(--primary);
+            background: var(--primary-50);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .program-btn.active {
-            border-color: #667eea;
-            background: #667eea;
+            border-color: var(--primary);
+            background: var(--primary);
             color: white;
         }
 
@@ -179,16 +234,19 @@
 
         .input-group input[type="number"] {
             width: 100%;
-            padding: 12px;
+            padding: 12px 16px;
             font-size: 1.1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            transition: border-color 0.3s;
+            border: 2px solid var(--neutral-200);
+            border-radius: var(--radius-md);
+            transition: all 0.3s;
+            font-family: var(--font-family);
+            background: var(--neutral-0);
         }
 
         .input-group input[type="number"]:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-100);
         }
 
         /* 가격 안내 박스 */
@@ -265,10 +323,11 @@
         }
 
         .content-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: var(--neutral-0);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--neutral-200);
             margin-bottom: 30px;
         }
 
@@ -281,25 +340,34 @@
         }
 
         .estimate-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
+            background: var(--neutral-0);
+            border: 2px solid var(--neutral-200);
+            padding: 28px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s;
+        }
+
+        .estimate-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-4px);
         }
 
         .estimate-card h2 {
             font-size: 1.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             text-align: center;
-            border-bottom: 2px solid rgba(255,255,255,0.3);
-            padding-bottom: 15px;
+            border-bottom: 2px solid var(--neutral-200);
+            padding-bottom: 16px;
+            color: var(--neutral-900);
+            font-weight: 700;
         }
 
         .estimate-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 12px 0;
+            border-bottom: 1px solid var(--neutral-200);
         }
 
         .estimate-item:last-child {
@@ -308,46 +376,58 @@
 
         .estimate-label {
             font-size: 1rem;
-            opacity: 0.9;
+            color: var(--neutral-600);
         }
 
         .estimate-value {
             font-size: 1.1rem;
             font-weight: 600;
+            color: var(--neutral-900);
         }
 
         .total-price {
-            background: rgba(255,255,255,0.2);
-            padding: 18px;
-            border-radius: 10px;
-            margin-top: 20px;
+            background: var(--primary-50);
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            margin-top: 24px;
             text-align: center;
+            border: 2px solid var(--primary-100);
         }
 
         .total-price .label {
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-bottom: 8px;
-            opacity: 0.9;
+            color: var(--primary-800);
+            font-weight: 600;
         }
 
         .total-price .amount {
             font-size: 2.2rem;
             font-weight: 700;
+            color: var(--primary);
         }
 
         /* 프로그램 비교표 */
         .comparison-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px solid #e0e0e0;
+            background: var(--neutral-0);
+            padding: 28px;
+            border-radius: var(--radius-xl);
+            border: 2px solid var(--neutral-200);
+            box-shadow: var(--shadow-base);
+            transition: all 0.3s;
+        }
+
+        .comparison-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
         }
 
         .comparison-card h3 {
-            color: #667eea;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
+            color: var(--neutral-900);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
             text-align: center;
+            font-weight: 700;
         }
 
         .comparison-item {
@@ -364,7 +444,7 @@
 
         .comparison-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
@@ -415,18 +495,20 @@
         }
 
         .price-table-section {
-            background: white;
-            border-radius: 20px;
+            background: var(--neutral-0);
+            border-radius: var(--radius-xl);
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--neutral-200);
             margin-bottom: 30px;
         }
 
         .price-table-section h2 {
-            color: #667eea;
+            color: var(--neutral-900);
             font-size: 1.8rem;
             margin-bottom: 25px;
             text-align: center;
+            font-weight: 700;
         }
 
         .full-price-table {
@@ -436,7 +518,7 @@
         }
 
         .full-price-table thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary);
             color: white;
         }
 
@@ -492,28 +574,233 @@
         /* 인당 비용 비교 */
         .per-person-table {
             width: 100%;
-            max-width: 600px;
+            max-width: 900px;
             margin: 20px auto;
             border-collapse: collapse;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         .per-person-table thead {
-            background: #667eea;
+            background: var(--primary);
             color: white;
         }
 
-        .per-person-table th,
-        .per-person-table td {
-            padding: 12px;
+        .per-person-table th {
+            padding: 16px 12px;
             text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .per-person-table td {
+            padding: 14px 12px;
+            text-align: center;
+            font-size: 0.95rem;
         }
 
         .per-person-table tbody td {
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 2px solid #e8ebf2;
+        }
+
+        .per-person-table tbody tr:nth-child(odd) {
+            background: #f8f9ff;
+        }
+
+        .per-person-table tbody tr:nth-child(even) {
+            background: white;
         }
 
         .per-person-table tbody tr:hover {
+            background: #e6e9ff !important;
+            transform: scale(1.01);
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .per-person-table tbody td:first-child {
+            font-weight: 600;
+            color: #667eea;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ebf2 100%);
+        }
+
+        /* 프로그램별 포함사항 비교표 */
+        .comparison-features-table {
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .comparison-features-table thead {
+            background: var(--primary);
+            color: white;
+        }
+
+        .comparison-features-table thead th {
+            padding: 18px 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.05rem;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .comparison-features-table thead th:last-child {
+            border-right: none;
+        }
+
+        .comparison-features-table thead th.program-2day {
+            background: rgba(52, 152, 219, 0.2);
+        }
+
+        .comparison-features-table thead th.program-3day {
+            background: rgba(155, 89, 182, 0.2);
+        }
+
+        .comparison-features-table thead th.program-4day {
+            background: rgba(142, 68, 173, 0.3);
+        }
+
+        .comparison-features-table tbody td {
+            padding: 16px 12px;
+            text-align: center;
+            border-bottom: 2px solid #e8ebf2;
+            font-size: 0.95rem;
+        }
+
+        .comparison-features-table tbody tr:nth-child(odd) {
             background: #f8f9ff;
+        }
+
+        .comparison-features-table tbody tr:nth-child(even) {
+            background: white;
+        }
+
+        .comparison-features-table tbody tr:hover {
+            background: #e6e9ff !important;
+            transition: all 0.2s;
+        }
+
+        .comparison-features-table .feature-name {
+            font-weight: 600;
+            color: #667eea;
+            text-align: left;
+            padding-left: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ebf2 100%);
+        }
+
+        .comparison-features-table .check-mark {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 4px;
+        }
+
+        .comparison-features-table .x-mark {
+            color: #bdc3c7;
+            font-size: 1.2rem;
+            opacity: 0.5;
+        }
+
+        /* 시간표 스타일 */
+        .schedule-table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            min-width: 800px;
+        }
+
+        .schedule-table thead {
+            background: var(--primary);
+            color: white;
+        }
+
+        .schedule-table thead th {
+            padding: 16px 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.05rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .schedule-table thead th:first-child {
+            border-radius: 10px 0 0 0;
+            width: 120px;
+        }
+
+        .schedule-table thead th:last-child {
+            border-radius: 0 10px 0 0;
+        }
+
+        .schedule-row {
+            height: 96px;
+        }
+
+        .schedule-table .time-cell {
+            font-weight: 600;
+            color: #667eea;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ebf2 100%);
+            white-space: nowrap;
+            font-size: 0.9rem;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            vertical-align: middle;
+        }
+
+        .schedule-cell {
+            position: relative;
+            padding: 0;
+            border: 1px solid #e0e0e0;
+            vertical-align: top;
+            height: 96px;
+        }
+
+        .schedule-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 8px;
+            border-radius: 4px;
+            line-height: 1.4;
+            box-sizing: border-box;
+        }
+
+        .schedule-item.schedule-lecture {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 2px solid #3b82f6;
+        }
+
+        .schedule-item.schedule-coaching {
+            background: #dcfce7;
+            color: #166534;
+            border: 2px solid #22c55e;
+        }
+
+        .schedule-item.schedule-lunch {
+            background: #fed7aa;
+            color: #9a3412;
+            border: 2px solid #f97316;
         }
 
         /* 인사이트 카드 */
@@ -591,7 +878,7 @@
             }
 
             .comparison-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
             }
 
             .total-price .amount {
@@ -603,17 +890,86 @@
             }
 
             .full-price-table {
-                font-size: 0.85rem;
+                font-size: 0.75rem;
             }
 
             .full-price-table thead th,
             .full-price-table tbody td {
-                padding: 8px 4px;
+                padding: 6px 3px;
             }
 
             .tab-btn {
                 padding: 12px 20px;
                 font-size: 1rem;
+            }
+
+            .program-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .program-btn {
+                padding: 12px;
+            }
+
+            .program-btn .label {
+                font-size: 1rem;
+            }
+
+            .program-btn .desc {
+                font-size: 0.8rem;
+            }
+
+            .price-table-section {
+                overflow-x: auto;
+            }
+
+            .per-person-table {
+                font-size: 0.8rem;
+            }
+
+            .per-person-table th,
+            .per-person-table td {
+                padding: 8px 4px;
+            }
+
+            .comparison-features-table {
+                font-size: 0.8rem;
+            }
+
+            .comparison-features-table th,
+            .comparison-features-table td {
+                padding: 10px 6px;
+            }
+
+            .comparison-features-table .feature-name {
+                padding-left: 10px;
+                font-size: 0.85rem;
+            }
+
+            .comparison-features-table .check-mark,
+            .comparison-features-table .x-mark {
+                font-size: 1rem;
+            }
+
+            /* 시간표 모바일 스타일 */
+            .schedule-table {
+                min-width: 600px;
+                font-size: 0.8rem;
+            }
+
+            .schedule-table thead th {
+                padding: 12px 6px;
+                font-size: 0.9rem;
+            }
+
+            .schedule-table tbody td {
+                padding: 10px 6px;
+                font-size: 0.8rem;
+                line-height: 1.3;
+            }
+
+            .schedule-table .time-cell {
+                font-size: 0.75rem;
             }
         }
 
@@ -640,7 +996,7 @@
             }
 
             .full-price-table thead {
-                background: #667eea !important;
+                background: var(--primary) !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -655,12 +1011,147 @@
 
     <!-- 탭 메뉴 -->
     <div class="tab-menu">
-        <button class="tab-btn active" data-tab="calculator">견적 계산기</button>
-        <button class="tab-btn" data-tab="pricetable">전체 가격표</button>
+        <button class="tab-btn active" data-tab="pricetable">전체 가격표</button>
+        <button class="tab-btn" data-tab="calculator">견적 계산기</button>
     </div>
 
-    <!-- 탭 컨텐츠 1: 견적 계산기 -->
-    <div class="tab-content active" id="calculator">
+    <!-- 탭 컨텐츠 1: 전체 가격표 -->
+    <div class="tab-content active" id="pricetable">
+        <div class="price-table-container">
+            <!-- 프로그램 시간표 -->
+            <div class="price-table-section">
+                <h2>📅 프로그램별 시간표</h2>
+
+                <!-- 시간표 탭 메뉴 -->
+                <div class="schedule-tab-menu" style="display: flex; gap: 10px; margin-bottom: 20px; justify-content: center;">
+                    <button class="schedule-tab-btn" data-schedule="day2" style="padding: 12px 30px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 10px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s;">
+                        오프라인 2일 + 온라인 코칭
+                    </button>
+                    <button class="schedule-tab-btn" data-schedule="day3" style="padding: 12px 30px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 10px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s;">
+                        오프라인 3일 + 온라인 코칭
+                    </button>
+                    <button class="schedule-tab-btn active" data-schedule="day4" style="padding: 12px 30px; border: 2px solid #667eea; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s;">
+                        오프라인 4일 + 상주 코칭
+                    </button>
+                </div>
+
+                <!-- 2일 시간표 -->
+                <div class="schedule-content" id="schedule-day2" style="display: none; text-align: center; padding: 20px 0;">
+                    <img src="2일차_v2.png" alt="2일 프로그램 시간표" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                </div>
+
+                <!-- 3일 시간표 -->
+                <div class="schedule-content" id="schedule-day3" style="display: none; text-align: center; padding: 20px 0;">
+                    <img src="CleanShot 2025-11-07 at 18.56.30@2x.png" alt="3일 프로그램 시간표" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                </div>
+
+                <!-- 4일 시간표 -->
+                <div class="schedule-content active" id="schedule-day4" style="text-align: center; padding: 20px 0;">
+                    <img src="CleanShot 2025-11-07 at 18.47.12@2x.png" alt="4일 프로그램 시간표" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+
+            <!-- 프로그램별 포함사항 비교 -->
+            <div class="price-table-section">
+                <h2>📦 프로그램별 포함사항 비교</h2>
+                <table class="comparison-features-table">
+                    <thead>
+                        <tr>
+                            <th>항목</th>
+                            <th class="program-2day">오프라인 2일<br>+ 온라인 코칭</th>
+                            <th class="program-3day">오프라인 3일<br>+ 온라인 코칭</th>
+                            <th class="program-4day">오프라인 4일<br>+ 상주 코칭</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="feature-name">오프라인 강의</td>
+                            <td>8시간</td>
+                            <td>11시간</td>
+                            <td>11시간</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">발표 및 진행 지원</td>
+                            <td>5시간</td>
+                            <td>6시간</td>
+                            <td>6시간</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">1:1 개별 코칭</td>
+                            <td>온라인 2회 × 30분</td>
+                            <td>오프라인 1회 × 20분<br>온라인 2회 × 20분</td>
+                            <td>오프라인 3회 × 20분</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">프로젝트 진행 중<br>코칭 상주 지원</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>○</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">보조강사 배정</td>
+                            <td>10명당 1명</td>
+                            <td>10명당 1명</td>
+                            <td>10명당 1명</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">바이브코딩 패키지</td>
+                            <td>○</td>
+                            <td>○</td>
+                            <td>○</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 구간별 가격 -->
+            <div class="price-table-section">
+                <h2>💡 인원 구간별 가격</h2>
+                <table class="per-person-table">
+                    <thead>
+                        <tr>
+                            <th>인원 구간</th>
+                            <th>오프라인 2일<br>+ 온라인 코칭</th>
+                            <th>오프라인 3일<br>+ 온라인 코칭</th>
+                            <th>오프라인 4일<br>+ 상주 코칭</th>
+                        </tr>
+                    </thead>
+                    <tbody id="perPersonTableBody">
+                        <!-- JavaScript로 동적 생성 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 통합 가격표 -->
+            <div class="price-table-section">
+                <h2>📊 전체 프로그램 가격표</h2>
+                <table class="full-price-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">인원</th>
+                            <th colspan="2">오프라인 2일 + 온라인 코칭</th>
+                            <th colspan="2">오프라인 3일 + 온라인 코칭</th>
+                            <th colspan="2">오프라인 4일 + 상주 코칭</th>
+                        </tr>
+                        <tr>
+                            <th>세일즈</th>
+                            <th title="강의 75만원/h, 코칭 30만원/h" style="cursor: help;">내부 견적<br><span style="font-size: 0.75rem; font-weight: 400; opacity: 0.9;">(강의 75만원/h, 코칭 30만원/h)</span></th>
+                            <th>세일즈</th>
+                            <th title="강의 75만원/h, 코칭 30만원/h" style="cursor: help;">내부 견적<br><span style="font-size: 0.75rem; font-weight: 400; opacity: 0.9;">(강의 75만원/h, 코칭 30만원/h)</span></th>
+                            <th>세일즈</th>
+                            <th title="강의 75만원/h, 코칭 30만원/h" style="cursor: help;">내부 견적<br><span style="font-size: 0.75rem; font-weight: 400; opacity: 0.9;">(강의 75만원/h, 코칭 30만원/h)</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="fullPriceTableBody">
+                        <!-- JavaScript로 동적 생성 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 탭 컨텐츠 2: 견적 계산기 -->
+    <div class="tab-content" id="calculator">
         <div class="main-container">
         <!-- 좌측 사이드패널 -->
         <aside class="sidebar">
@@ -670,12 +1161,16 @@
                     <h3>💼 프로그램 선택</h3>
                     <div class="program-selector">
                         <button class="program-btn active" data-program="day2">
-                            <div class="label">2일차</div>
-                            <div class="desc">강의 + 개별코칭</div>
+                            <div class="label">오프라인 2일</div>
+                            <div class="desc">온라인 코칭</div>
+                        </button>
+                        <button class="program-btn" data-program="day3">
+                            <div class="label">오프라인 3일</div>
+                            <div class="desc">온라인 코칭</div>
                         </button>
                         <button class="program-btn" data-program="day4">
-                            <div class="label">4일차</div>
-                            <div class="desc">강의 + 상주코칭</div>
+                            <div class="label">오프라인 4일</div>
+                            <div class="desc">상주 코칭</div>
                         </button>
                     </div>
                 </div>
@@ -723,59 +1218,6 @@
         </div>
     </div>
 
-    <!-- 탭 컨텐츠 2: 전체 가격표 -->
-    <div class="tab-content" id="pricetable">
-        <div class="price-table-container">
-            <!-- 통합 가격표 -->
-            <div class="price-table-section">
-                <h2>📊 2일차 vs 4일차 전체 가격표</h2>
-                <table class="full-price-table">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">인원</th>
-                            <th colspan="2">2일차 프로그램</th>
-                            <th colspan="2">4일차 프로그램</th>
-                        </tr>
-                        <tr>
-                            <th>세일즈</th>
-                            <th>원가</th>
-                            <th>세일즈</th>
-                            <th>원가</th>
-                        </tr>
-                    </thead>
-                    <tbody id="fullPriceTableBody">
-                        <!-- JavaScript로 동적 생성 -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- 구간별 가격 -->
-            <div class="price-table-section">
-                <h2>💡 인원 구간별 가격</h2>
-                <table class="per-person-table">
-                    <thead>
-                        <tr>
-                            <th>인원 구간</th>
-                            <th>2일차 (세일즈)</th>
-                            <th>4일차 (세일즈)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="perPersonTableBody">
-                        <!-- JavaScript로 동적 생성 -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- 주요 인사이트 -->
-            <!-- <div class="price-table-section">
-                <h2>💰 주요 인사이트</h2>
-                <div class="insights-grid" id="insightsGrid">
-                    <!-- JavaScript로 동적 생성 -->
-                <!-- </div>
-            </div> -->
-        </div>
-    </div>
-
     <script>
         // 가격 설정
         const config = {
@@ -787,6 +1229,10 @@
             DAY2_PRESENTATION_HOURS: 5,
             DAY2_COACHING_PER_PERSON: 1,
 
+            DAY3_LECTURE_HOURS: 11,
+            DAY3_PRESENTATION_HOURS: 6,
+            DAY3_COACHING_PER_PERSON: 0.67,  // 40분/인 (2/3시간)
+
             DAY4_LECTURE_HOURS: 11,
             DAY4_PRESENTATION_HOURS: 6,
             DAY4_COACHING_HOURS: 11,
@@ -796,6 +1242,12 @@
             SALES_DAY2_TIER2: 1050000,  // 16-20명
             SALES_DAY2_TIER3: 1000000,  // 21-25명
             SALES_DAY2_TIER4: 970000,   // 26-30명
+
+            // 3일차 세일즈 가격 (4일차 대비 -10만원)
+            SALES_DAY3_TIER1: 1250000,  // 11-15명
+            SALES_DAY3_TIER2: 1200000,  // 16-20명
+            SALES_DAY3_TIER3: 1150000,  // 21-25명
+            SALES_DAY3_TIER4: 1110000,  // 26-30명
 
             // 4일차 세일즈 가격 (4단계)
             SALES_DAY4_TIER1: 1350000,  // 11-15명
@@ -885,6 +1337,112 @@
             };
         }
 
+        // 3일차 원가 계산
+        function calculateDay3Original(participants) {
+            const lectureCost = config.DAY3_LECTURE_HOURS * config.LECTURE_RATE;
+            const presentationCost = config.DAY3_PRESENTATION_HOURS * config.COACHING_RATE;
+            const baseCost = lectureCost + presentationCost;
+            const coachingCost = participants * config.DAY3_COACHING_PER_PERSON * config.COACHING_RATE;
+
+            const assistantCount = getAssistantCount(participants);
+            const assistantHours = config.DAY3_LECTURE_HOURS + config.DAY3_PRESENTATION_HOURS;
+            const assistantCost = assistantCount * assistantHours * config.ASSISTANT_RATE;
+
+            const total = baseCost + coachingCost + assistantCost;
+
+            return {
+                baseCost, lectureCost, presentationCost, coachingCost,
+                assistantCount, assistantCost, total,
+                perPerson: Math.floor(total / participants)
+            };
+        }
+
+        // 4일차 원가 계산
+        function calculateDay4Original(participants) {
+            const lectureCost = config.DAY4_LECTURE_HOURS * config.LECTURE_RATE;
+            const presentationCost = config.DAY4_PRESENTATION_HOURS * config.COACHING_RATE;
+            const coachingCost = config.DAY4_COACHING_HOURS * config.COACHING_RATE;
+            const baseCost = lectureCost + presentationCost + coachingCost;
+
+            const assistantCount = getAssistantCount(participants);
+            const assistantHours = config.DAY4_LECTURE_HOURS + config.DAY4_PRESENTATION_HOURS + config.DAY4_COACHING_HOURS;
+            const assistantCost = assistantCount * assistantHours * config.ASSISTANT_RATE;
+
+            const total = baseCost + assistantCost;
+
+            return {
+                baseCost, lectureCost, presentationCost, coachingCost,
+                assistantCount, assistantCost, total,
+                perPerson: Math.floor(total / participants)
+            };
+        }
+
+        // 2일차 세일즈 가격 계산
+        function calculateDay2Sales(participants) {
+            let perPerson, total, tier;
+
+            if (participants <= 10) {
+                const baseCost = 7_500_000;
+                const coachingCost = participants * 300_000;
+                total = baseCost + coachingCost;
+                perPerson = Math.floor(total / participants);
+                tier = '1-10명 (기본 + 개별코칭)';
+            } else if (participants <= 15) {
+                perPerson = config.SALES_DAY2_TIER1;
+                total = participants * perPerson;
+                tier = '11-15명';
+            } else if (participants <= 20) {
+                perPerson = config.SALES_DAY2_TIER2;
+                total = participants * perPerson;
+                tier = '16-20명';
+            } else if (participants <= 25) {
+                perPerson = config.SALES_DAY2_TIER3;
+                total = participants * perPerson;
+                tier = '21-25명';
+            } else {
+                perPerson = config.SALES_DAY2_TIER4;
+                total = participants * perPerson;
+                tier = '26-30명';
+            }
+
+            return {
+                perPerson, total, tier,
+                assistantCount: getAssistantCount(participants)
+            };
+        }
+
+        // 3일차 세일즈 가격 계산
+        function calculateDay3Sales(participants) {
+            let perPerson, total, tier;
+
+            if (participants <= 10) {
+                total = 12_100_000;
+                perPerson = Math.floor(total / participants);
+                tier = '1-10명 (고정)';
+            } else if (participants <= 15) {
+                perPerson = config.SALES_DAY3_TIER1;
+                total = participants * perPerson;
+                tier = '11-15명';
+            } else if (participants <= 20) {
+                perPerson = config.SALES_DAY3_TIER2;
+                total = participants * perPerson;
+                tier = '16-20명';
+            } else if (participants <= 25) {
+                perPerson = config.SALES_DAY3_TIER3;
+                total = participants * perPerson;
+                tier = '21-25명';
+            } else {
+                perPerson = config.SALES_DAY3_TIER4;
+                total = participants * perPerson;
+                tier = '26-30명';
+            }
+
+            return {
+                perPerson, total, tier,
+                assistantCount: getAssistantCount(participants)
+            };
+        }
+
         // 4일차 세일즈 가격 계산
         function calculateDay4Sales(participants) {
             let perPerson, total, tier;
@@ -936,19 +1494,19 @@
                     </div>
                     <div class="price-tier">
                         <strong>📌 11-15명</strong>
-                        <div class="description">세일즈: 110만원/명<br>원가: 기본 1,140만원 + 코칭 30만원/명<br>(보조강사 1명 포함)</div>
+                        <div class="description">세일즈: 110만원/명<br>내부가: 기본 1,140만원 + 코칭 30만원/명<br>(보조강사 1명 포함)</div>
                     </div>
                     <div class="price-tier">
                         <strong>📌 16-20명</strong>
-                        <div class="description">세일즈: 105만원/명<br>원가: 기본 1,140만원 + 코칭 30만원/명<br>(보조강사 1명 포함)</div>
+                        <div class="description">세일즈: 105만원/명<br>내부가: 기본 1,140만원 + 코칭 30만원/명<br>(보조강사 1명 포함)</div>
                     </div>
                     <div class="price-tier">
                         <strong>📌 21-25명</strong>
-                        <div class="description">세일즈: 100만원/명<br>원가: 기본 1,530만원 + 코칭 30만원/명<br>(보조강사 2명 포함)</div>
+                        <div class="description">세일즈: 100만원/명<br>내부가: 기본 1,530만원 + 코칭 30만원/명<br>(보조강사 2명 포함)</div>
                     </div>
                     <div class="price-tier">
                         <strong>📌 26-30명</strong>
-                        <div class="description">세일즈: 97만원/명<br>원가: 기본 1,530만원 + 코칭 30만원/명<br>(보조강사 2명 포함)</div>
+                        <div class="description">세일즈: 97만원/명<br>내부가: 기본 1,530만원 + 코칭 30만원/명<br>(보조강사 2명 포함)</div>
                     </div>
                     <div class="price-tier">
                         <strong>📌 31명 이상</strong>
@@ -966,6 +1524,43 @@
                         </ul>
                     </div>
                 `;
+            } else if (program === 'day3') {
+                html = `
+                    <div class="price-tier">
+                        <strong>📌 1-10명</strong>
+                        <div class="description">1,210만원 (고정)<br>(보조강사 없음)</div>
+                    </div>
+                    <div class="price-tier">
+                        <strong>📌 11-15명</strong>
+                        <div class="description">세일즈: 125만원/명<br>내부가: 기본 1,050만원 + 코칭 20만원/명<br>(보조강사 1명 포함)</div>
+                    </div>
+                    <div class="price-tier">
+                        <strong>📌 16-20명</strong>
+                        <div class="description">세일즈: 120만원/명<br>내부가: 기본 1,050만원 + 코칭 20만원/명<br>(보조강사 1명 포함)</div>
+                    </div>
+                    <div class="price-tier">
+                        <strong>📌 21-25명</strong>
+                        <div class="description">세일즈: 115만원/명<br>내부가: 기본 1,380만원 + 코칭 20만원/명<br>(보조강사 2명 포함)</div>
+                    </div>
+                    <div class="price-tier">
+                        <strong>📌 26-30명</strong>
+                        <div class="description">세일즈: 111만원/명<br>내부가: 기본 1,380만원 + 코칭 20만원/명<br>(보조강사 2명 포함)</div>
+                    </div>
+                    <div class="price-tier">
+                        <strong>📌 31명 이상</strong>
+                        <div class="description">별도 상담 문의</div>
+                    </div>
+                    <div class="includes-section">
+                        <h4>✅ 포함사항</h4>
+                        <ul class="includes-list">
+                            <li>메인 강사 전문 강의 (11시간)</li>
+                            <li>발표 및 진행 지원 (6시간)</li>
+                            <li>온라인 1:1 개별 코칭 (40분/인, 2회)</li>
+                            <li>보조강사 자동 배정 (11명 이상)</li>
+                            <li>교육 자료 및 워크시트 제공</li>
+                        </ul>
+                    </div>
+                `;
             } else {
                 html = `
                     <div class="price-tier">
@@ -974,19 +1569,19 @@
                     </div>
                     <div class="price-tier">
                         <strong>📌 11-15명</strong>
-                        <div class="description">세일즈: 135만원/명<br>원가: 2,175만원 (고정)<br>(보조강사 1명 포함)</div>
+                        <div class="description">세일즈: 135만원/명<br>내부가: 2,175만원 (고정)<br>(보조강사 1명 포함)</div>
                     </div>
                     <div class="price-tier">
                         <strong>📌 16-20명</strong>
-                        <div class="description">세일즈: 130만원/명<br>원가: 2,175만원 (고정)<br>(보조강사 1명 포함)</div>
+                        <div class="description">세일즈: 130만원/명<br>내부가: 2,175만원 (고정)<br>(보조강사 1명 포함)</div>
                     </div>
                     <div class="price-tier">
                         <strong>📌 21-25명</strong>
-                        <div class="description">세일즈: 125만원/명<br>원가: 3,015만원 (고정)<br>(보조강사 2명 포함)</div>
+                        <div class="description">세일즈: 125만원/명<br>내부가: 3,015만원 (고정)<br>(보조강사 2명 포함)</div>
                     </div>
                     <div class="price-tier">
                         <strong>📌 26-30명</strong>
-                        <div class="description">세일즈: 121만원/명<br>원가: 3,015만원 (고정)<br>(보조강사 2명 포함)</div>
+                        <div class="description">세일즈: 121만원/명<br>내부가: 3,015만원 (고정)<br>(보조강사 2명 포함)</div>
                     </div>
                     <div class="price-tier">
                         <strong>📌 31명 이상</strong>
@@ -1053,6 +1648,9 @@
             if (program === 'day2') {
                 salesResult = calculateDay2Sales(participants);
                 originalResult = calculateDay2Original(participants);
+            } else if (program === 'day3') {
+                salesResult = calculateDay3Sales(participants);
+                originalResult = calculateDay3Original(participants);
             } else {
                 salesResult = calculateDay4Sales(participants);
                 originalResult = calculateDay4Original(participants);
@@ -1090,7 +1688,7 @@
             if (program === 'day2') {
                 originalHTML = `
                     <div class="estimate-card">
-                        <h2>원가 기반 견적</h2>
+                        <h2>내부 견적 (강의 75만원/h 코칭 30만원/h)</h2>
                         <div class="estimate-item">
                             <span class="estimate-label">참여 인원</span>
                             <span class="estimate-value">${participants}명</span>
@@ -1121,10 +1719,44 @@
                         </div>
                     </div>
                 `;
+            } else if (program === 'day3') {
+                originalHTML = `
+                    <div class="estimate-card">
+                        <h2>원가 (내부 가격) 기반 견적</h2>
+                        <div class="estimate-item">
+                            <span class="estimate-label">참여 인원</span>
+                            <span class="estimate-value">${participants}명</span>
+                        </div>
+                        <div class="estimate-item">
+                            <span class="estimate-label">강의료 (11시간)</span>
+                            <span class="estimate-value">${formatCurrency(originalResult.lectureCost)}</span>
+                        </div>
+                        <div class="estimate-item">
+                            <span class="estimate-label">발표/진행료 (6시간)</span>
+                            <span class="estimate-value">${formatCurrency(originalResult.presentationCost)}</span>
+                        </div>
+                        <div class="estimate-item">
+                            <span class="estimate-label">온라인 개별 코칭료 (40분/인)</span>
+                            <span class="estimate-value">${formatCurrency(originalResult.coachingCost)}</span>
+                        </div>
+                        <div class="estimate-item">
+                            <span class="estimate-label">보조강사 (${originalResult.assistantCount}명)</span>
+                            <span class="estimate-value">${formatCurrency(originalResult.assistantCost)}</span>
+                        </div>
+                        <div class="estimate-item">
+                            <span class="estimate-label">인당 단가</span>
+                            <span class="estimate-value">${formatCurrency(originalResult.perPerson)}</span>
+                        </div>
+                        <div class="total-price">
+                            <div class="label">총 견적 금액</div>
+                            <div class="amount">${formatCurrency(originalResult.total)}</div>
+                        </div>
+                    </div>
+                `;
             } else {
                 originalHTML = `
                     <div class="estimate-card">
-                        <h2>원가 기반 견적</h2>
+                        <h2>원가 (내부 가격) 기반 견적</h2>
                         <div class="estimate-item">
                             <span class="estimate-label">참여 인원</span>
                             <span class="estimate-value">${participants}명</span>
@@ -1172,21 +1804,25 @@
 
             const day2Sales = calculateDay2Sales(participants);
             const day2Original = calculateDay2Original(participants);
+            const day3Sales = calculateDay3Sales(participants);
+            const day3Original = calculateDay3Original(participants);
             const day4Sales = calculateDay4Sales(participants);
             const day4Original = calculateDay4Original(participants);
 
-            const diff = day4Sales.total - day2Sales.total;
-
             const comparisonHTML = `
                 <div class="comparison-card">
-                    <h3>2일차 프로그램</h3>
+                    <h3>오프라인 2일 + 온라인 코칭</h3>
                     <div class="comparison-item">
-                        <span>세일즈 총액</span>
+                        <span>인당 단가</span>
+                        <strong style="color: #667eea; font-size: 1.15rem;">${formatCurrency(day2Sales.perPerson)}</strong>
+                    </div>
+                    <div class="comparison-item">
+                        <span>총 금액</span>
                         <strong>${formatCurrency(day2Sales.total)}</strong>
                     </div>
                     <div class="comparison-item">
-                        <span>원가 총액</span>
-                        <strong>${formatCurrency(day2Original.total)}</strong>
+                        <span>내부가 총액</span>
+                        <strong style="color: #999; font-size: 0.9rem;">${formatCurrency(day2Original.total)}</strong>
                     </div>
                     <div class="comparison-item">
                         <span>보조강사</span>
@@ -1194,25 +1830,42 @@
                     </div>
                 </div>
                 <div class="comparison-card">
-                    <h3>4일차 프로그램</h3>
+                    <h3>오프라인 3일 + 온라인 코칭</h3>
                     <div class="comparison-item">
-                        <span>세일즈 총액</span>
+                        <span>인당 단가</span>
+                        <strong style="color: #9b59b6; font-size: 1.15rem;">${formatCurrency(day3Sales.perPerson)}</strong>
+                    </div>
+                    <div class="comparison-item">
+                        <span>총 금액</span>
+                        <strong>${formatCurrency(day3Sales.total)}</strong>
+                    </div>
+                    <div class="comparison-item">
+                        <span>내부가 총액</span>
+                        <strong style="color: #999; font-size: 0.9rem;">${formatCurrency(day3Original.total)}</strong>
+                    </div>
+                    <div class="comparison-item">
+                        <span>보조강사</span>
+                        <strong>${day3Sales.assistantCount}명</strong>
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <h3>오프라인 4일 + 상주 코칭</h3>
+                    <div class="comparison-item">
+                        <span>인당 단가</span>
+                        <strong style="color: #8e44ad; font-size: 1.15rem;">${formatCurrency(day4Sales.perPerson)}</strong>
+                    </div>
+                    <div class="comparison-item">
+                        <span>총 금액</span>
                         <strong>${formatCurrency(day4Sales.total)}</strong>
                     </div>
                     <div class="comparison-item">
-                        <span>원가 총액</span>
-                        <strong>${formatCurrency(day4Original.total)}</strong>
+                        <span>내부가 총액</span>
+                        <strong style="color: #999; font-size: 0.9rem;">${formatCurrency(day4Original.total)}</strong>
                     </div>
                     <div class="comparison-item">
                         <span>보조강사</span>
                         <strong>${day4Sales.assistantCount}명</strong>
                     </div>
-                 <!--
-                    <div class="comparison-item" style="margin-top: 10px; padding-top: 10px; border-top: 2px solid #e0e0e0;">
-                        <span>프로그램 차액 (세일즈)</span>
-                        <strong style="color: #667eea;">+${formatCurrency(diff)}</strong>
-                    </div>
-                 -->
                 </div>
             `;
 
@@ -1247,6 +1900,8 @@
             participants.forEach(n => {
                 const day2Sales = calculateDay2Sales(n);
                 const day2Original = calculateDay2Original(n);
+                const day3Sales = calculateDay3Sales(n);
+                const day3Original = calculateDay3Original(n);
                 const day4Sales = calculateDay4Sales(n);
                 const day4Original = calculateDay4Original(n);
 
@@ -1255,6 +1910,8 @@
                         <td>${n}명</td>
                         <td>${formatCurrency(day2Sales.total)}</td>
                         <td>${formatCurrency(day2Original.total)}</td>
+                        <td>${formatCurrency(day3Sales.total)}</td>
+                        <td>${formatCurrency(day3Original.total)}</td>
                         <td>${formatCurrency(day4Sales.total)}</td>
                         <td>${formatCurrency(day4Original.total)}</td>
                     </tr>
@@ -1265,7 +1922,7 @@
             html += `
                 <tr>
                     <td>30명 초과</td>
-                    <td colspan="4" style="text-align: center; color: #667eea; font-weight: 600;">별도 협의</td>
+                    <td colspan="6" style="text-align: center; color: #667eea; font-weight: 600;">별도 협의</td>
                 </tr>
             `;
 
@@ -1278,11 +1935,11 @@
 
             // 구간별 가격 정의
             const ranges = [
-                { label: '1-10명', day2: '기본 750만원 + 개별코칭 30만원/명', day4: '1,335만원 고정' },
-                { label: '11-15명 (보조강사 1명)', day2: '110만원/명', day4: '135만원/명' },
-                { label: '16-20명 (보조강사 1명)', day2: '105만원/명', day4: '130만원/명' },
-                { label: '21-25명 (보조강사 2명)', day2: '100만원/명', day4: '125만원/명' },
-                { label: '26-30명 (보조강사 2명)', day2: '97만원/명', day4: '121만원/명' }
+                { label: '1-10명', day2: '기본 750만원 + <br> 개별코칭 30만원/명', day3: '1,210만원 고정', day4: '1,335만원 고정' },
+                { label: '11-15명 (보조강사 1명)', day2: '110만원/명', day3: '125만원/명', day4: '135만원/명' },
+                { label: '16-20명 (보조강사 1명)', day2: '105만원/명', day3: '120만원/명', day4: '130만원/명' },
+                { label: '21-25명 (보조강사 2명)', day2: '100만원/명', day3: '115만원/명', day4: '125만원/명' },
+                { label: '26-30명 (보조강사 2명)', day2: '97만원/명', day3: '111만원/명', day4: '121만원/명' }
             ];
 
             let html = '';
@@ -1292,6 +1949,7 @@
                     <tr>
                         <td>${range.label}</td>
                         <td>${range.day2}</td>
+                        <td>${range.day3}</td>
                         <td>${range.day4}</td>
                     </tr>
                 `;
@@ -1301,7 +1959,7 @@
             html += `
                 <tr>
                     <td>30명 초과</td>
-                    <td colspan="2" style="text-align: center; color: #667eea; font-weight: 600;">별도 협의</td>
+                    <td colspan="3" style="text-align: center; color: #667eea; font-weight: 600;">별도 협의</td>
                 </tr>
             `;
 
@@ -1385,9 +2043,43 @@
             });
         });
 
+        // 시간표 탭 전환 로직
+        document.querySelectorAll('.schedule-tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const scheduleName = this.dataset.schedule;
+
+                // 모든 시간표 탭 버튼 비활성화
+                document.querySelectorAll('.schedule-tab-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.style.background = 'white';
+                    b.style.color = '#667eea';
+                });
+
+                // 모든 시간표 컨텐츠 숨기기
+                document.querySelectorAll('.schedule-content').forEach(content => {
+                    content.style.display = 'none';
+                    content.classList.remove('active');
+                });
+
+                // 선택한 시간표 탭 활성화
+                this.classList.add('active');
+                this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                this.style.color = 'white';
+
+                // 선택한 시간표 컨텐츠 표시
+                const scheduleContent = document.getElementById(`schedule-${scheduleName}`);
+                scheduleContent.style.display = 'block';
+                scheduleContent.classList.add('active');
+            });
+        });
+
         // 초기화
         updatePricingInfo('day2');
         displayEstimates();
+
+        // 전체 가격표가 기본 탭이므로 초기 로드 시 가격표 생성
+        generateFullPriceTable();
+        generatePerPersonTable();
     </script>
 </body>
 </html>
