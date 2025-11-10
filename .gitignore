@@ -1,1 +1,18 @@
 .vercel
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# IDE settings
+.claude/settings.local.json
+
+# Screenshots and images
+*.png
+
+# Package files (if not using npm in production)
+package.json
+
+# Other
+styleguide.html
+verify-deployment.js
